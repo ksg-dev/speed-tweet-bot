@@ -11,8 +11,7 @@ PROMISED_UP = 10
 TWITTER_EMAIL = os.environ["TWITTER_EMAIL"]
 TWITTER_PASSWORD = os.environ["TWITTER_PASSWORD"]
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_experimental_option("detach", True)
+
 
 # Open speedtest window
 driver = webdriver.Chrome(options=chrome_options)
