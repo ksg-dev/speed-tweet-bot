@@ -96,8 +96,11 @@ class InternetSpeedTwitterBot:
         tweet_field.send_keys(f"Hey ATT, why is my internet speed {self.down} down/ "
                               f"{self.up} up when I pay for {PROMISED_DOWN} down/ {PROMISED_UP} up?")
         time.sleep(2)
-        post_button = self.driver.find_element(By.PARTIAL_LINK_TEXT, value="compose/post")
+        post_button = self.driver.find_element(By.XPATH, value='//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button/div/span/span')
         post_button.click()
+
+        time.sleep(2)
+        self.driver.quit()
 
 
 
