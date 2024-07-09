@@ -55,8 +55,6 @@ class InternetSpeedTwitterBot:
 
         return self.down, self.up
 
-
-
     def tweet_at_provider(self):
         self.driver.get("https://x.com/login")
 
@@ -88,7 +86,6 @@ class InternetSpeedTwitterBot:
 
             time.sleep(7)
 
-
         # Draft Tweet
         tweet_field = self.driver.find_element(By.CLASS_NAME, value="public-DraftEditor-content")
         time.sleep(1)
@@ -101,8 +98,6 @@ class InternetSpeedTwitterBot:
 
         time.sleep(2)
         self.driver.quit()
-
-
 
 
 bot = InternetSpeedTwitterBot()
