@@ -51,9 +51,31 @@ class InternetSpeedTwitterBot:
 
 
     def tweet_at_provider(self):
-        pass
+        self.driver.get("https://x.com/login")
+
+        # Email Field
+        time.sleep(2)
+        email = self.driver.find_element(By.CLASS_NAME, value="r-30o5oe")
+        email.send_keys(TWITTER_EMAIL)
+        email.send_keys(Keys.ENTER)
+
+        # Password Field
+
+
+        # # Close banner if open
+        # try:
+        #     banner = self.driver.find_element(By.XPATH, value='//*[@id="layers"]/div/div[2]/div/div/div/button')
+        #     banner.click()
+        # except:
+        #     pass
+
+        # Sign in
+        # time.sleep(2)
+        # sign_in_button = self.driver.find_element(By.XPATH, value='//*[@id="react-root"]/div/div/div[2]/main/div/div/'
+        #                                                           'div[1]/div/div/div[3]/div[4]/a')
+        # sign_in_button.click()
 
 
 bot = InternetSpeedTwitterBot()
-bot.get_internet_speed()
+# bot.get_internet_speed()
 bot.tweet_at_provider()
