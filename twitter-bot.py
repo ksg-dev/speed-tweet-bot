@@ -53,8 +53,7 @@ class InternetSpeedTwitterBot:
             if self.up != "—":
                 loading = False
 
-        print(f"down: {self.down}")
-        print(f"up: {self.up}")
+        return self.down, self.up
 
 
 
@@ -93,15 +92,16 @@ class InternetSpeedTwitterBot:
         # Draft Tweet
         tweet_field = self.driver.find_element(By.CLASS_NAME, value="public-DraftEditor-content")
         time.sleep(1)
-        # tweet_field.click()
-        # tweet_field.send_keys(f"Hey ATT, why is my internet speed {self.down} down/ "
-        #                       f"{self.up} up when I pay for {PROMISED_DOWN} down/ {PROMISED_UP} up?")
-        # post_text = self.driver.find_element(By.XPATH, value=TWEET_FIELD_XPATH)
-        tweet_field.send_keys("Hey ATT, why is my internet speed 50down/5up?")
+
+        tweet_field.send_keys(f"Hey ATT, why is my internet speed {self.down} down/ "
+                              f"{self.up} up when I pay for {PROMISED_DOWN} down/ {PROMISED_UP} up?")
+        time.sleep(2)
+        post_button = self.driver.find_element(By.PARTIAL_LINK_TEXT, value="compose/post")
+        post_button.click()
 
 
 
 
 bot = InternetSpeedTwitterBot()
-# bot.get_internet_speed()
+bot.get_internet_speed()
 bot.tweet_at_provider()
