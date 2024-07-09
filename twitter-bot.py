@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from dotenv import load_dotenv
@@ -11,6 +12,7 @@ load_dotenv()
 PROMISED_DOWN = 350
 PROMISED_UP = 350
 TWITTER_EMAIL = os.environ["TWITTER_EMAIL"]
+TWITTER_USER = os.environ["TWITTER_USER"]
 TWITTER_PASSWORD = os.environ["TWITTER_PASSWORD"]
 
 TEST_DOWN_XPATH = ('//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]'
@@ -56,24 +58,37 @@ class InternetSpeedTwitterBot:
         # Email Field
         time.sleep(2)
         email = self.driver.find_element(By.CLASS_NAME, value="r-30o5oe")
-        email.send_keys(TWITTER_EMAIL)
+        email.send_keys(TWITTER_USER)
         email.send_keys(Keys.ENTER)
+        time.sleep(5)
 
         # Password Field
+        time.sleep(3)
+        # Try loop to catch verification w email
+        try:
+            password = self.driver.find_element(By.NAME, value="password")
+
+        except NoSuchElementException:
+            verify_field = self.driver.find_element(By.CLASS_NAME, value="r-30o5oe")
+            verify_field.send_keys(TWITTER_EMAIL)
+            verify_field.send_keys(Keys.ENTER)
+            time.sleep(3)
+
+            password = self.driver.find_element(By.NAME, value="password")
+            time.sleep(2)
+
+        finally:
+            password.send_keys(TWITTER_PASSWORD)
+            password.send_keys(Keys.ENTER)
 
 
-        # # Close banner if open
-        # try:
-        #     banner = self.driver.find_element(By.XPATH, value='//*[@id="layers"]/div/div[2]/div/div/div/button')
-        #     banner.click()
-        # except:
-        #     pass
+        # Draft Tweet
+        tweet_field = self.driver.find_element(By.CLASS_NAME, value="public-DraftEditorPlaceholder-inner")
+        # tweet_field.send_keys(f"Hey ATT, why is my internet speed {self.down} down/ "
+        #                       f"{self.up} up when I pay for {PROMISED_DOWN} down/ {PROMISED_UP} up?")
+        tweet_field.send_keys("Hey ATT, why is my internet speed 50down/5up?")
 
-        # Sign in
-        # time.sleep(2)
-        # sign_in_button = self.driver.find_element(By.XPATH, value='//*[@id="react-root"]/div/div/div[2]/main/div/div/'
-        #                                                           'div[1]/div/div/div[3]/div[4]/a')
-        # sign_in_button.click()
+
 
 
 bot = InternetSpeedTwitterBot()
