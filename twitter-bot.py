@@ -20,6 +20,12 @@ TEST_DOWN_XPATH = ('//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/di
 TEST_UP_XPATH = ('//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/'
                  'div[3]/div/div/div[2]/div[1]/div[2]/div/div[2]/span')
 
+TWEET_FIELD_XPATH = ('//*[@id="react-root"]/div/div/div[2]/main/'
+                     'div/div/div/div/div/div[3]/div/div[2]/div[1]/'
+                     'div/div/div/div[2]/div[1]/div/div/div/div/div/'
+                     'div/div/div/div/div/div/div[1]/div/div/div/div/'
+                     'div/div/div')
+
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option("detach", True)
 
@@ -81,11 +87,16 @@ class InternetSpeedTwitterBot:
             password.send_keys(TWITTER_PASSWORD)
             password.send_keys(Keys.ENTER)
 
+            time.sleep(7)
+
 
         # Draft Tweet
-        tweet_field = self.driver.find_element(By.CLASS_NAME, value="public-DraftEditorPlaceholder-inner")
+        tweet_field = self.driver.find_element(By.CLASS_NAME, value="public-DraftEditor-content")
+        time.sleep(1)
+        # tweet_field.click()
         # tweet_field.send_keys(f"Hey ATT, why is my internet speed {self.down} down/ "
         #                       f"{self.up} up when I pay for {PROMISED_DOWN} down/ {PROMISED_UP} up?")
+        # post_text = self.driver.find_element(By.XPATH, value=TWEET_FIELD_XPATH)
         tweet_field.send_keys("Hey ATT, why is my internet speed 50down/5up?")
 
 
